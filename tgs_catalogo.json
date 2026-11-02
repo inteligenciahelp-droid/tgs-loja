@@ -1,0 +1,16 @@
+[
+  {
+    "name": "[TGS] GTA V - Completo",
+    "pkgi_url": "URL_DO_SEU_JOGO_AQUI_1.pkg",
+    "size": 65000000000,
+    "region": "USA",
+    "cover_url": "URL_DA_CAPA_DO_JOGO_AQUI_1.jpg"
+  },
+  {
+    "name": "[TGS] Resident Evil 4 Remake",
+    "pkgi_url": "URL_DO_SEU_JOGO_AQUI_2.pkg",
+    "size": 55000000000,
+    "region": "EUR",
+    "cover_url": "URL_DA_CAPA_DO_JOGO_AQUI_2.jpg"
+  }
+]
