@@ -1,1 +1,2 @@
-# tgs-loja
+# TGS STORE
+### Tech Games Support 
