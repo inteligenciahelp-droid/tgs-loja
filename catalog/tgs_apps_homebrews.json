@@ -1,8 +1,16 @@
-
 {
-  "schema_version": 1,
   "store": "TGS STORE",
   "catalog_id": "tgs-apps-homebrews",
-  "updated_at": "2026-11-02",
-  "items": []
+  "version": "1.0.0",
+  "items": [
+    {
+      "id": "TGSS00001",
+      "name": "TGS STORE Oficial",
+      "description": "Aplicativo instalador oficial da Tech Games Support para PS4.",
+      "icon_url": "https://github.io",
+      "package_url": "https://github.io",
+      "version": "1.0.0",
+      "size": "5.4 MB"
+    }
+  ]
 }
