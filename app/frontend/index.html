@@ -4,40 +4,56 @@
     <meta charset="UTF-8">
     <title>TGS STORE</title>
     <style>
-        body { background-color: #0b0f19; color: #ffffff; font-family: sans-serif; padding: 20px; }
-        h1 { color: #00d2ff; text-transform: uppercase; border-bottom: 2px solid #00d2ff; padding-bottom: 10px; }
-        .status { background: #16222f; padding: 15px; border-radius: 5px; margin-top: 20px; border-left: 5px solid #00d2ff; font-size: 18px; }
-        .sucesso { border-left-color: #00ff88; color: #00ff88; }
-        .erro { border-left-color: #ff3366; color: #ff3366; }
+        body { background-color: #0b0f19; color: #ffffff; font-family: sans-serif; padding: 20px; margin: 0; }
+        .header { background: #111827; padding: 20px; border-bottom: 3px solid #00d2ff; }
+        h1 { margin: 0; color: #00d2ff; text-transform: uppercase; font-size: 24px; }
+        .status { background: #16222f; padding: 10px 15px; border-radius: 5px; margin-top: 10px; border-left: 5px solid #00ff88; color: #00ff88; font-size: 14px; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
+        .card { background: #111827; border: 1px solid #1f2937; border-radius: 8px; padding: 15px; text-align: center; transition: transform 0.2s; }
+        .card:hover { transform: scale(1.05); border-color: #00d2ff; }
+        .card img { width: 100%; height: auto; border-radius: 5px; background: #232d3f; min-height: 150px; }
+        .card h3 { margin: 10px 0 5px 0; font-size: 16px; color: #ffffff; }
+        .card p { margin: 0 0 15px 0; font-size: 12px; color: #9ca3af; height: 32px; overflow: hidden; }
+        .btn-download { display: inline-block; background: #00d2ff; color: #0b0f19; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .btn-download:hover { background: #00ff88; }
     </style>
 </head>
 <body>
-    <h1>Tech Games Support - TGS STORE</h1>
-    <div id="status-box" class="status">
-        Conectando ao catálogo online da loja...
+
+    <div class="header">
+        <h1>Tech Games Support - TGS STORE</h1>
+        <div id="status-box" class="status">Conectado ao catálogo oficial da loja.</div>
     </div>
 
-    <script>
-        // Caminho oficial do catálogo no seu GitHub Pages
-        const urlCatalogo = '../../catalog/tgs_apps_homebrews.json';
+    <!-- Grade onde os itens do JSON vão aparecer sozinhos -->
+    <div id="grid-jogos" class="grid-container"></div>
 
-        // Tenta buscar o arquivo no servidor de forma dinâmica
+    <script>
+        const urlCatalogo = '../../catalog/tgs_apps_homebrews.json';
+        const grid = document.getElementById('grid-jogos');
+
         fetch(urlCatalogo)
-            .then(response => {
-                if (!response.ok) throw new Error('Erro ao carregar o arquivo');
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                // Se conseguir ler o JSON com sucesso
-                const box = document.getElementById('status-box');
-                box.className = 'status sucesso';
-                box.innerHTML = `<strong>Sucesso:</strong> Conectado à ${data.store}! Catálogo de ID "${data.catalog_id}" lido perfeitamente e pronto para o PS4.`;
+                // Passa por cada item listado dentro da array "items" do seu JSON
+                data.items.forEach(item => {
+                    // Cria o elemento visual do card
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    
+                    card.innerHTML = `
+                        <img src="${item.icon_url}" alt="${item.name}">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <a href="${item.package_url}" class="btn-download">Instalar</a>
+                    `;
+                    
+                    // Coloca o card dentro da grade na tela
+                    grid.appendChild(card);
+                });
             })
             .catch(error => {
-                // Se o arquivo estiver ausente ou com erro de sintaxe
-                const box = document.getElementById('status-box');
-                box.className = 'status erro';
-                box.innerHTML = `<strong>Erro de Conexão:</strong> Não foi possível ler o banco de dados da loja.`;
+                document.getElementById('status-box').innerHTML = "Erro ao renderizar itens.";
             });
     </script>
 </body>
